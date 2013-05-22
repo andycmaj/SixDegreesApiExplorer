@@ -1,0 +1,54 @@
+---
+apiVersion: '1'
+swaggerVersion: '1.1'
+basePath: http://172.16.29.128/api
+resourcePath: /search
+overview: <p>some paragraph here.</p><h4>heading</h4><pre>code code code</pre>
+apis:
+- path: /search
+  operations:
+  - httpMethod: GET
+    summary: Search for a movie or person
+    notes: 
+    responseClass: Set[Degree]
+    nickname: search
+    parameters:
+    - name: type
+      description: They type of Degree we are searching for.
+      paramType: query
+      required: true
+      allowMultiple: false
+      dataType: string
+      allowableValues:
+        valueType: SET[string]
+        values:
+        - movie
+        - person
+    - name: query
+      description: The string to search for.
+      paramType: query
+      required: true
+      allowMultiple: false
+      dataType: string
+    responseCodes:
+    - code: 200
+      reason: Success
+    - code: 400
+      reason: Invalid request params
+    - code: 401
+      reason: Caller is not authenticated
+    - code: 404
+      reason: Resource not found
+models:
+  Degree:
+    id: Degree
+    properties:
+      id:
+        type: string
+        description: Identifier for this Degree.
+      label:
+        type: string
+        description: Displayable name for the Degree.
+      thumbUrl:
+        type: string
+        description: A URL pointing to a thumbnail image for the Degree.
